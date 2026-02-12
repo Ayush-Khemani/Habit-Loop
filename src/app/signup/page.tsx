@@ -32,7 +32,13 @@ export default function SignupPage() {
         body: JSON.stringify(formData),
       })
 
-      const data = await res.json()
+      let data: { error?: string; debug?: string }
+      try {
+        data = await res.json()
+      } catch {
+        const text = await res.text()
+        throw new Error(res.ok ? 'Invalid response' : `Server error (${res.status}): ${text.slice(0, 200)}`)
+      }
 
       if (!res.ok) {
         const message = data.debug ? `${data.error}: ${data.debug}` : (data.error || 'Something went wrong')
