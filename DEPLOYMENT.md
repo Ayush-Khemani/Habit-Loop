@@ -1,10 +1,14 @@
 # Deployment Guide for HabitLoop
 
+**→ For a quick free deploy (Vercel + Neon, no Railway): see [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md).**
+
+---
+
 ## Prerequisites
 
 - GitHub account
 - Vercel account (free tier works)
-- Railway account (for PostgreSQL)
+- PostgreSQL database: **Neon** (free) or Railway
 
 ## Step 1: Database Setup (Railway)
 

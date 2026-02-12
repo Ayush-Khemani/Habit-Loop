@@ -9,3 +9,11 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
 })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+
+/**
+ * Call before DB operations in serverless (Vercel). Ensures the connection is
+ * open; reconnects if Neon closed it (fixes "Error { kind: Closed }").
+ */
+export async function ensureDb() {
+  await prisma.$connect()
+}

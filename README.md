@@ -16,6 +16,8 @@ People don't stick to habits because they lack accountability and social support
 
 **→ First time? Use [YOUR_STEPS.md](./YOUR_STEPS.md)** for a short guide with **free database options** (Neon, Supabase, ElephantSQL — no Railway needed) and exact commands.
 
+**→ Deploy for free:** [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md) — Vercel + Neon, step-by-step.
+
 ### Prerequisites
 - Node.js 18+
 - PostgreSQL database (free tier from Neon / Supabase / ElephantSQL — see YOUR_STEPS.md)

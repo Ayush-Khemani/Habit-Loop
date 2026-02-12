@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@/lib/prisma'
+import { prisma, ensureDb } from '@/lib/prisma'
 import { z } from 'zod'
 
 const signupSchema = z.object({
@@ -11,6 +11,7 @@ const signupSchema = z.object({
 
 export async function POST(req: Request) {
   try {
+    await ensureDb()
     const body = await req.json()
     const { name, email, password } = signupSchema.parse(body)
 
