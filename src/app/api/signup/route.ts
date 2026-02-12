@@ -52,9 +52,23 @@ export async function POST(req: Request) {
       )
     }
 
-    console.error('Signup error:', error)
+    const isDev = process.env.NODE_ENV === 'development'
+    const errMessage = error instanceof Error ? error.message : String(error)
+    const errCode = error && typeof error === 'object' && 'code' in error ? String((error as { code: string }).code) : ''
+    console.error('Signup error:', errMessage, errCode || '', error)
+
+    if (errMessage.includes('relation') && errMessage.includes('does not exist')) {
+      return NextResponse.json(
+        { error: 'Database tables missing. Run: npx prisma db push with your production DATABASE_URL in .env' },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json(
-      { error: 'Something went wrong' },
+      {
+        error: 'Something went wrong',
+        debug: errMessage + (errCode ? ` [${errCode}]` : ''),
+      },
       { status: 500 }
     )
   }

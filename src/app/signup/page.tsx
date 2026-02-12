@@ -35,7 +35,8 @@ export default function SignupPage() {
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong')
+        const message = data.debug ? `${data.error}: ${data.debug}` : (data.error || 'Something went wrong')
+        throw new Error(message)
       }
 
       // Auto login after signup

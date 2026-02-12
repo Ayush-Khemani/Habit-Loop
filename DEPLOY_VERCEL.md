@@ -51,13 +51,23 @@ Vercel runs in a serverless environment. You must use Neon’s **pooled** connec
 
 - If you’re not sure of the Vercel URL yet, use a placeholder like **`https://habit-loop.vercel.app`**, then change it in **Step 5** after the first deploy.
 
-### Step 4: Deploy
+### Step 4: Ensure production database has tables
+
+Vercel does **not** run `prisma db push`. Your Neon DB must already have the tables.
+
+1. Locally, set **`.env`** so **`DATABASE_URL`** is your **production** Neon URL (the same one you use on Vercel).
+2. Run once: **`npx prisma db push`**
+3. Then set **`.env`** back to your local DB if needed.
+
+If you skip this, signup will return 500 and the error will say the table/relation does not exist.
+
+### Step 5: Deploy
 
 1. Click **Deploy**.
 2. Wait for the build to finish (a few minutes).
 3. Open the **Visit** link (e.g. `https://habit-loop-xxx.vercel.app`).
 
-### Step 5: Fix `NEXTAUTH_URL` if needed
+### Step 6: Fix `NEXTAUTH_URL` if needed
 
 1. In Vercel: **Project → Settings → Environment Variables**.
 2. If your real URL is different from what you set (e.g. you used a placeholder), set **`NEXTAUTH_URL`** to the **exact** URL Vercel shows (e.g. `https://habit-loop-abc123.vercel.app`).
